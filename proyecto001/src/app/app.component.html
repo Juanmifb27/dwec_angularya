@@ -1,0 +1,48 @@
+<div>
+  <h3>Mecanismo de interpolacion</h3>
+  <p>Tu nombre es {{nombre}}</p>
+  <p>Edad {{edad}}</p>
+  <p>{{sueldos}}</p>
+  <p>{{esFumador()}}</p>
+</div>
+<hr>
+<div>
+  <h3>Directiva *ngIg</h3>
+  <p *ngIf="edad>=18; else menor">Eres mayor de edad</p>
+  <!-- <p *ngIf="edad<18">Eres menor de edad</p> -->
+   <ng-template #menor><p>Eres menor de edad</p></ng-template>
+</div>
+<hr>
+<div>
+  <h3>Directiva *ngFor</h3>
+  <!-- Se crea una variables nueva y lo otro es un array declaarado en el ts -->
+  <ul>
+    <li *ngFor="let sueldo of sueldos">{{sueldo}}</li>
+  </ul>
+  <select>
+    <option *ngFor="let prov of provincias" value="{{prov.id}}">{{prov.nombre}}</option>
+  </select>
+  <table border="1">
+    <tr>
+      <td>id</td>
+      <td>nombre</td>
+    </tr>
+    <tr *ngFor="let prov of provincias">
+      <td>{{prov.id}}</td>
+      <td>{{prov.nombre}}</td>
+    </tr>
+  </table>
+</div>
+
+<div>
+  <h3>Captura de eventos</h3>
+  <button (click)="diHola()">Di hola</button>
+  <p>{{contador}}</p>
+  <button (click)="incrementar()">+</button>
+  <button (click)="decrementar()">-</button>
+</div>
+
+<div>
+  <h3>Directiva ngModel</h3>
+  <input type="text" [(ngModel)]="nombre" name="">
+</div>
