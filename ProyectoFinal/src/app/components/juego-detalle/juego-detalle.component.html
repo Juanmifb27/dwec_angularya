@@ -1,0 +1,10 @@
+<div *ngIf="juego" class="container bg-danger-subtle">
+    <h2 class="text-center">{{ juego.name }}</h2>
+    <img [src]="juego.background_image" class="img-fluid" alt="{{ juego.name }}" />
+
+    <div class="container text-center">
+        <p>Rating: {{ juego.rating }} / 5</p>
+        <p>Fecha de lanzamiento: {{ juego.released }}</p>
+    </div>
+  </div>
+  
