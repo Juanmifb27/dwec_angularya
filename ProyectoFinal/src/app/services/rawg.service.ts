@@ -12,14 +12,26 @@ export class RawgService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getJuegos(url?:string): Observable<JuegosExterno> {
-    return this.httpClient.get<JuegosExterno>(url ?? this.baseUrl);
+  getBaseUrl(): string {
+    return this.baseUrl;
   }
 
-  buscarJuegos(query: string): Observable<JuegosExterno> {
-    const url = `${this.baseUrl}&search=${encodeURIComponent(query)}`;
-    return this.httpClient.get<JuegosExterno>(url);
-}
+  getJuegos(url?: string): Observable<JuegosExterno> {
+    const apiUrl = url ? url : this.baseUrl;
+    return this.httpClient.get<JuegosExterno>(apiUrl);
+  }
+  
+
+  buscarJuegos(query: string, ordering: string = ''): Observable<JuegosExterno> {
+    let apiUrl = `${this.baseUrl}&search=${query}`;
+  
+    if (ordering) {
+      apiUrl += `&ordering=${ordering}`;
+    }
+  
+    return this.httpClient.get<JuegosExterno>(apiUrl);
+  }
+  
 
   // buscarJuegos(query: string): Observable<any> {
   //   const url = `${this.baseUrl}&search=${encodeURIComponent(query)}`;

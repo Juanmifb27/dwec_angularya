@@ -29,8 +29,14 @@ constructor(private rawgService: RawgService){}
     this.getJuegos();
   }
 
-  getJuegos(url?: string) {
-    this.rawgService.getJuegos(url).subscribe({
+  getJuegos(url?: string, ordering: string = '') {
+    let finalUrl = url ? url : this.rawgService.getBaseUrl(); // Ahora usamos el método público
+  
+    if (ordering) {
+      finalUrl += `&ordering=${ordering}`;
+    }
+  
+    this.rawgService.getJuegos(finalUrl).subscribe({
       next: (result: JuegosExterno) => {
         this.ListaJuego = result.results;
         this.count = result.count;
@@ -42,13 +48,16 @@ constructor(private rawgService: RawgService){}
       }
     });
   }
+  
 
-  buscarJuegos(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    this.busqueda = target.value;
-
+  buscarJuegos(event?: Event, ordering: string = ''): void {
+    if (event) {
+      const target = event.target as HTMLInputElement;
+      this.busqueda = target.value; // Solo actualiza this.busqueda si viene de un input
+    }
+  
     if (this.busqueda.trim()) {
-      this.rawgService.buscarJuegos(this.busqueda).subscribe({
+      this.rawgService.buscarJuegos(this.busqueda, ordering).subscribe({
         next: (result: JuegosExterno) => {
           this.ListaJuego = result.results;
           this.count = result.count;
@@ -60,9 +69,11 @@ constructor(private rawgService: RawgService){}
         }
       });
     } else {
-      this.getJuegos();
+      this.getJuegos(undefined, ordering);
     }
   }
+  
+  
 
   seleccionarJuego(juego: JuegoInterface) {
     this.juegoSeleccionado = juego;

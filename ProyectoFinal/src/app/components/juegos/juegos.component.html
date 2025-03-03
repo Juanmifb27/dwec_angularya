@@ -6,10 +6,18 @@
 
     <div class="text-center mb-5">
         <input 
-          type="text" 
-          class="form-control w-50 mx-auto" 
-          placeholder="Buscar juego..."
-          (input)="buscarJuegos($event)" />
+        type="text" 
+        class="form-control w-50 mx-auto" 
+        placeholder="Buscar juego..."
+        (input)="buscarJuegos($event, ordenSelect.value)" />
+      
+      <select id="orden" #ordenSelect (change)="buscarJuegos(undefined, ordenSelect.value)">
+        <option value="">Seleccionar</option>
+        <option value="name">Nombre</option>
+        <option value="-released">Fecha de Lanzamiento</option>
+        <option value="-rating">Rating</option>
+      </select>
+        
       </div>
       <p>Resultados de la busqueda: {{count}}</p>
       <div class="d-flex justify-content-between mt-4">

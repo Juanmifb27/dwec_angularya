@@ -1,10 +1,19 @@
-<div *ngIf="juego" class="container bg-danger-subtle">
+<div *ngIf="juego" class="container bg-danger-subtle text-center p-3">
     <h2 class="text-center">{{ juego.name }}</h2>
-    <img [src]="juego.background_image" class="img-fluid" alt="{{ juego.name }}" />
 
-    <div class="container text-center">
+    <div class="d-flex justify-content-center">
+        <img [src]="juego.background_image" class="img-fluid rounded shadow" alt="{{ juego.name }}" />
+    </div>
+
+    <div class="container text-center mt-3">
         <p>Rating: {{ juego.rating }} / 5</p>
         <p>Fecha de lanzamiento: {{ juego.released }}</p>
+
+        <p *ngIf="juego.platforms?.length">Plataformas:</p>
+        <ul *ngIf="juego.platforms?.length" class="list-unstyled">
+            <li *ngFor="let p of juego.platforms">{{ p.platform.name }}</li>
+        </ul>
     </div>
-  </div>
+</div>
+
   
